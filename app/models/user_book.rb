@@ -1,6 +1,6 @@
 class UserBook < ApplicationRecord
   MAX_BOOK_PER_USER = 5
-  validate :allow_five_book_per_user
+  validate :allow_five_book_per_user, on: :create
   belongs_to :user
   belongs_to :book
 
