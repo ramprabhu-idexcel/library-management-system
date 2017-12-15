@@ -1,0 +1,45 @@
+<%- model_class = UserBook -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th><%= model_class.human_attribute_name(:id) %></th>
+    <th><%= model_class.human_attribute_name(:user_id) %></th>
+    <th><%= model_class.human_attribute_name(:book_id) %></th>
+    <th><%= model_class.human_attribute_name(:start_date) %></th>
+    <th><%= model_class.human_attribute_name(:return_date) %></th>
+    <th><%= model_class.human_attribute_name(:is_damage) %></th>
+    <th><%=t '.actions', :default => t("helpers.actions") %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @user_books.each do |user_book| %>
+      <tr>
+        <td><%= link_to user_book.id, user_book_path(user_book) %></td>
+        <td><%= user_book.user.name %></td>
+        <td><%= user_book.book.name %></td>
+        <td><%= user_book.start_date %></td>
+        <td><%= user_book.return_date %></td>
+        <td><%= user_book.is_damage %></td>
+        <td>
+          <%= link_to t('.view', :default => t("helpers.links.view")),
+                      user_book_path(user_book), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_user_book_path(user_book), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      user_book_path(user_book),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_user_book_path,
+            :class => 'btn btn-primary' %>
+

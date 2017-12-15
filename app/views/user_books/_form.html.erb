@@ -1,0 +1,45 @@
+<%= form_with(model: user_book, local: true) do |form| %>
+  <% if user_book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_book.errors.count, "error") %> prohibited this user_book from being saved:</h2>
+
+      <ul>
+      <% user_book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.select :user_id, User.all.collect{ |u| [u.first_name + u.last_name, u.id] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :book_id %>
+    <%= form.select :book_id, Book.all.collect{ |u| [u.name, u.id] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.text_field :start_date, id: :user_book_start_date %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :return_date %>
+    <%= form.text_field :return_date, id: :user_book_return_date %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :is_damage %>
+    <%= form.check_box :is_damage, id: :user_book_is_damage %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
